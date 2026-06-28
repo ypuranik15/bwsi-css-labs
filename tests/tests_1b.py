@@ -37,5 +37,17 @@ def test_invalid_operation():
     with pytest.raises(ValueError, match="Invalid operation. Please choose from 'add', 'subtract', 'multiply', or 'divide'."):
         simple_calculator("", 5, 3)                     # Test for empty operation
 
+def test_float_inputs():
+    assert simple_calculator("add", 2.5, 1.5) == 4.0
+    assert simple_calculator("multiply", 2.5, 2) == 5.0
+
+def test_case_sensitivity():
+    with pytest.raises(ValueError, match="Invalid operation. Please choose from 'add', 'subtract', 'multiply', or 'divide'."):
+        simple_calculator("Add", 5, 3)   # capital A should not be recognized
+
+def test_invalid_type_input():
+    with pytest.raises(TypeError):
+        simple_calculator("add", "five", 3)   # string instead of number
+        
 if __name__ == "__main__":
     pytest.main()
